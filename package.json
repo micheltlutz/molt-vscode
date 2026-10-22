@@ -1,0 +1,63 @@
+{
+  "name": "molt-vscode",
+  "displayName": "Molt for VS Code",
+  "description": "Snippets and project commands for Molt, the safe HTML DSL for Rust.",
+  "version": "0.1.0",
+  "publisher": "micheltlutz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/micheltlutz/molt-vscode.git"
+  },
+  "homepage": "https://github.com/micheltlutz/molt",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Snippets",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "molt",
+    "rust",
+    "html",
+    "static site",
+    "snippets"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "rust",
+        "path": "./snippets/rust.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "molt.newProject",
+        "title": "Molt: New Project"
+      },
+      {
+        "command": "molt.addDependency",
+        "title": "Molt: Add to Current Project"
+      },
+      {
+        "command": "molt.run",
+        "title": "Molt: Run (cargo run)"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.4.0"
+  }
+}

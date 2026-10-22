@@ -1,0 +1,130 @@
+{
+  "Molt: use prelude": {
+    "prefix": "molt-use",
+    "body": ["use molt::prelude::*;"],
+    "description": "Import the Molt prelude"
+  },
+  "Molt: html! macro": {
+    "prefix": "molt-html",
+    "body": [
+      "use molt::{html, prelude::*};",
+      "",
+      "let markup = html! {",
+      "\tdiv(class = \"${1:card}\") {",
+      "\t\th1 { \"${2:Title}\" }",
+      "\t\tp { \"${3:Text}\" }",
+      "\t}",
+      "};",
+      "$0"
+    ],
+    "description": "An html! block with one element"
+  },
+  "Molt: element (builder)": {
+    "prefix": "molt-el",
+    "body": [
+      "${1:div}()",
+      "\t.add_class(\"${2:card}\")",
+      "\t.child(${3:p}().text(\"${4:Text}\"))$0"
+    ],
+    "description": "An element built with the fluent builder"
+  },
+  "Molt: Document": {
+    "prefix": "molt-page",
+    "body": [
+      "use molt::prelude::*;",
+      "use molt::Document;",
+      "",
+      "let page = Document::new(Some(\"${1:en}\"))",
+      "\t.head_children([",
+      "\t\tmeta().attr(\"charset\", \"UTF-8\"),",
+      "\t\ttitle().text(\"${2:Page title}\"),",
+      "\t])",
+      "\t.body_children([",
+      "\t\tmain_tag().child(h1().text(\"${3:Hello}\")),",
+      "\t]);",
+      "",
+      "println!(\"{}\", page.render());",
+      "$0"
+    ],
+    "description": "A complete Document, rendered pretty"
+  },
+  "Molt: @for in html!": {
+    "prefix": "molt-for",
+    "body": [
+      "@for ${1:item} in ${2:items} {",
+      "\tli { (${1:item}) }",
+      "}$0"
+    ],
+    "description": "A loop inside html!"
+  },
+  "Molt: @if in html!": {
+    "prefix": "molt-if",
+    "body": [
+      "@if ${1:condition} {",
+      "\t$2",
+      "} @else {",
+      "\t$3",
+      "}$0"
+    ],
+    "description": "A conditional inside html!"
+  },
+  "Molt: Layout": {
+    "prefix": "molt-layout",
+    "body": [
+      "use molt::prelude::*;",
+      "use molt::Layout;",
+      "",
+      "struct ${1:Shell};",
+      "",
+      "impl Layout for ${1:Shell} {",
+      "\tfn wrap(&self, content: Node) -> Node {",
+      "\t\tbody()",
+      "\t\t\t.child(main_tag().child(content))",
+      "\t\t\t.into()",
+      "\t}",
+      "}",
+      "$0"
+    ],
+    "description": "A Layout that wraps page content"
+  },
+  "Molt: SEO tags": {
+    "prefix": "molt-seo",
+    "body": [
+      "use molt::seo::SeoBuilder;",
+      "",
+      "let seo_tags = SeoBuilder::new(\"${1:Title}\", \"${2:Description}\")",
+      "\t.url(\"${3:https://example.com/}\")",
+      "\t.build();",
+      "$0"
+    ],
+    "description": "SEO and social metadata, ready for head_children"
+  },
+  "Molt: sitemap": {
+    "prefix": "molt-sitemap",
+    "body": [
+      "use molt::sitemap::SitemapGenerator;",
+      "use molt::sitemap::SitemapUrl;",
+      "",
+      "let xml = SitemapGenerator::generate(&[",
+      "\tSitemapUrl::new(\"${1:https://example.com/}\"),",
+      "]);",
+      "$0"
+    ],
+    "description": "A sitemap.xml string"
+  },
+  "Molt: static site": {
+    "prefix": "molt-ssg",
+    "body": [
+      "use molt::ssg::StaticSiteGenerator;",
+      "",
+      "fn main() -> std::io::Result<()> {",
+      "\tlet site = StaticSiteGenerator::new(\"${1:dist}\");",
+      "\tsite.clean(true)?;",
+      "\tsite.write_file(&${2:page}.render(), \"${3:index.html}\")?;",
+      "\tOk(())",
+      "}",
+      "$0"
+    ],
+    "description": "Write a page to disk with StaticSiteGenerator"
+  }
+}
